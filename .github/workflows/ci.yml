@@ -1,4 +1,4 @@
-name: FullStack Image Compressor Tool
+name: Full-Stack Image Compressor Tool
 
 push:
     branches: [ "main", "sub-main" ]
