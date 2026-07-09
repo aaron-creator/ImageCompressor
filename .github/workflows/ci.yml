@@ -6,7 +6,7 @@ push:
       - "ImageApp/**"
       - "ImageCompressor/**"
       - ".github/workflows/ci.yml"
-
+      
   pull_request:
     branches: [ "main", "sub-main" ]
     paths:
