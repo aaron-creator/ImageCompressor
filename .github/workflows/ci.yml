@@ -1,12 +1,13 @@
-name: Full-Stack Image Compressor Tool
+name: Fullstack CI - Angular + Spring Boot
 
-push:
+on:
+  push:
     branches: [ "main", "sub-main" ]
     paths:
       - "ImageApp/**"
       - "ImageCompressor/**"
       - ".github/workflows/ci.yml"
-      
+
   pull_request:
     branches: [ "main", "sub-main" ]
     paths:
@@ -18,7 +19,6 @@ push:
 
 permissions:
   contents: read
-
 
 jobs:
   frontend-build:
@@ -49,7 +49,7 @@ jobs:
       - name: Build frontend
         run: npm run build
         working-directory: ImageApp
-        
+
   backend-build:
     name: Backend Build - Spring Boot Maven
     runs-on: ubuntu-latest
@@ -62,7 +62,7 @@ jobs:
         run: |
           pwd
           ls -la
-          ls -la ImageCompressor
+          ls -la taskmanagement-backend
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -70,13 +70,13 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-          cache-dependency-path: ImageCompressor/pom.xml
+          cache-dependency-path: taskmanagement-backend/pom.xml
 
       - name: Build backend with Maven
-        run: mvn -B -f ImageCompressor/pom.xml clean verify
+        run: mvn -B -f taskmanagement-backend/pom.xml clean verify
 
       - name: Upload backend JAR
         uses: actions/upload-artifact@v4
         with:
           name: backend-jar
-          path: ImageCompressor/target/*.jar
+          path: taskmanagement-backend/target/*.jar
