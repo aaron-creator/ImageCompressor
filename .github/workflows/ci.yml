@@ -2,14 +2,14 @@ name: Fullstack Image Compressor Tool
 
 on:
   push:
-    branches: [ "main", "sub-main" ]
+    branches: [ "main", "sub-main", "feature" ]
     paths:
       - "ImageApp/**"
       - "ImageCompressor/**"
       - ".github/workflows/ci.yml"
 
   pull_request:
-    branches: [ "main", "sub-main" ]
+    branches: [ "main", "sub-main", "feature" ]
     paths:
       - "ImageApp/**"
       - "ImageCompressor/**"
