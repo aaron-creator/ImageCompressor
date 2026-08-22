@@ -1,0 +1,20 @@
+<div class="result-card" *ngIf="result">
+  <h3>Compression Result</h3>
+
+  <p class="success">{{ result.message }}</p>
+
+  <div class="result-details">
+    <p><strong>File Name:</strong> {{ result.fileName }}</p>
+    <p><strong>Original Size:</strong> {{ result.originalSize }}</p>
+    <p><strong>Compressed Size:</strong> {{ result.compressedSize }}</p>
+    <p><strong>Reduced By:</strong> {{ reductionPercentage }}%</p>
+  </div>
+
+  <a
+    *ngIf="downloadUrl"
+    [href]="downloadUrl"
+    download="compressed-image.jpg"
+    class="download-btn">
+    Download Compressed Image
+  </a>
+</div>

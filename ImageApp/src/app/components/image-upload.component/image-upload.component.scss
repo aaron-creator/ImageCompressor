@@ -1,0 +1,53 @@
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+}
+
+.upload-card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 14px;
+}
+
+.form-row {
+  margin-top: 12px;
+}
+
+small {
+  display: block;
+  color: #666;
+  margin-top: -8px;
+  margin-bottom: 12px;
+}
+
+button {
+  padding: 10px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  margin-top: 12px;
+}

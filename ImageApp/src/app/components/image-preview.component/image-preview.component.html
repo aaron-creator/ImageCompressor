@@ -1,0 +1,11 @@
+<div class="preview-card" *ngIf="previewUrl && selectedFile">
+  <h3>Selected Image Preview</h3>
+
+  <img [src]="previewUrl" alt="Selected image preview" class="preview-image" />
+
+  <div class="file-details">
+    <p><strong>File Name:</strong> {{ selectedFile.name }}</p>
+    <p><strong>Original Size:</strong> {{ fileSize }}</p>
+    <p><strong>File Type:</strong> {{ selectedFile.type }}</p>
+  </div>
+</div>

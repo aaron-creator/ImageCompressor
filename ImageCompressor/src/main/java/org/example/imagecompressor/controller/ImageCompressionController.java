@@ -13,6 +13,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/images")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ImageCompressionController {
 
     private final ImageCompressionService imageCompressionService;
@@ -27,6 +28,7 @@ public class ImageCompressionController {
                                                 @RequestParam(defaultValue = "800") int maxHeight,
                                                 @RequestParam(defaultValue = "0.5" ) float quality
                                                 )   throws IOException {
+        System.out.println("Compressing image file: " + file.getOriginalFilename());
 
         byte[] compressedImage = imageCompressionService.compressImage(
                 file,

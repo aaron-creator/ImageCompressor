@@ -12,7 +12,7 @@ export interface ImageCompressionResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class ImageCompression {
+export class ImageCompressionService {
 
   private readonly baseUrl = 'http://localhost:8080/api/images';
 

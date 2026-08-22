@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>Image Compression Tool</h2>
+
+  <div class="upload-card">
+    <label>Select Image</label>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+
+    <div class="form-row">
+      <label>Max Width</label>
+      <input type="number" [(ngModel)]="maxWidth" />
+    </div>
+
+    <div class="form-row">
+      <label>Max Height</label>
+      <input type="number" [(ngModel)]="maxHeight" />
+    </div>
+
+    <div class="form-row">
+      <label>Quality</label>
+      <input
+        type="number"
+        min="0"
+        max="1"
+        step="0.1"
+        [(ngModel)]="quality"
+      />
+      <small>Example: 0.2 low, 0.5 medium, 0.8 good, 1.0 highest</small>
+    </div>
+
+    <button (click)="compressImage()" [disabled]="isLoading">
+      {{ isLoading ? 'Compressing...' : 'Compress Image' }}
+    </button>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </div>
+
+  <app-image-preview
+    [previewUrl]="previewUrl"
+    [selectedFile]="selectedFile">
+  </app-image-preview>
+
+  <app-compression-result
+    [result]="result"
+    [downloadUrl]="downloadUrl">
+  </app-compression-result>
+</div>
