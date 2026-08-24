@@ -18,26 +18,7 @@ export class ImageCompressionService {
 
   constructor(private http: HttpClient) {}
 
-  getCompressionDetails(
-    file: File,
-    maxWidth: number,
-    maxHeight: number,
-    quality: number
-  ): Observable<ImageCompressionResponse> {
-
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('maxWidth', maxWidth.toString());
-    formData.append('maxHeight', maxHeight.toString());
-    formData.append('quality', quality.toString());
-
-    return this.http.post<ImageCompressionResponse>(
-      `${this.baseUrl}/compress/details`,
-      formData
-    );
-  }
-
-  compressAndDownload(
+  compressImage(
     file: File,
     maxWidth: number,
     maxHeight: number,
@@ -45,13 +26,18 @@ export class ImageCompressionService {
   ): Observable<Blob> {
 
     const formData = new FormData();
+
     formData.append('file', file);
     formData.append('maxWidth', maxWidth.toString());
     formData.append('maxHeight', maxHeight.toString());
     formData.append('quality', quality.toString());
 
-    return this.http.post(`${this.baseUrl}/compress`, formData, {
-      responseType: 'blob'
-    });
+    return this.http.post(
+      `${this.baseUrl}/compress`,
+      formData,
+      {
+        responseType: 'blob'
+      }
+    );
   }
 }

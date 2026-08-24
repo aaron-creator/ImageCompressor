@@ -1,46 +1,113 @@
 <div class="container">
+
   <h2>Image Compression Tool</h2>
 
+  <!-- Upload Section -->
   <div class="upload-card">
-    <label>Select Image</label>
-    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
 
-    <div class="form-row">
-      <label>Max Width</label>
-      <input type="number" [(ngModel)]="maxWidth" />
-    </div>
+    <label for="imageFile">
+      Select Image
+    </label>
 
-    <div class="form-row">
-      <label>Max Height</label>
-      <input type="number" [(ngModel)]="maxHeight" />
-    </div>
+    <input
+      id="imageFile"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
 
+    <!-- Max Width -->
     <div class="form-row">
-      <label>Quality</label>
+
+      <label for="maxWidth">
+        Max Width
+      </label>
+
       <input
+        id="maxWidth"
+        type="number"
+        [(ngModel)]="maxWidth"
+        min="1"
+      />
+
+    </div>
+
+    <!-- Max Height -->
+    <div class="form-row">
+
+      <label for="maxHeight">
+        Max Height
+      </label>
+
+      <input
+        id="maxHeight"
+        type="number"
+        [(ngModel)]="maxHeight"
+        min="1"
+      />
+
+    </div>
+
+    <!-- Quality -->
+    <div class="form-row">
+
+      <label for="quality">
+        Quality
+      </label>
+
+      <input
+        id="quality"
         type="number"
         min="0"
         max="1"
         step="0.1"
         [(ngModel)]="quality"
       />
-      <small>Example: 0.2 low, 0.5 medium, 0.8 good, 1.0 highest</small>
+
+      <small>
+        0.2 = Low |
+        0.5 = Medium |
+        0.8 = Good |
+        1.0 = Highest
+      </small>
+
     </div>
 
-    <button (click)="compressImage()" [disabled]="isLoading">
-      {{ isLoading ? 'Compressing...' : 'Compress Image' }}
+    <!-- Compress Button -->
+    <button
+      type="button"
+      (click)="compressImage()"
+      [disabled]="isLoading || !selectedFile">
+
+      @if (isLoading) {
+        Compressing...
+      } @else {
+        Compress Image
+      }
+
     </button>
 
-    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <!-- Error -->
+    @if (errorMessage) {
+
+      <p class="error">
+        {{ errorMessage }}
+      </p>
+
+    }
+
   </div>
 
+  <!-- Image Preview -->
   <app-image-preview
     [previewUrl]="previewUrl"
     [selectedFile]="selectedFile">
   </app-image-preview>
 
+  <!-- Compression Result -->
   <app-compression-result
     [result]="result"
     [downloadUrl]="downloadUrl">
   </app-compression-result>
+
 </div>
