@@ -1,0 +1,114 @@
+<div class="container">
+
+  <h2>Image Compression Tool</h2>
+
+  <!-- Upload Section -->
+  <div class="upload-card">
+
+    <label for="imageFile">
+      Select Image
+    </label>
+
+    <input
+      id="imageFile"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+
+    <!-- Max Width -->
+    <div class="form-row">
+
+      <label for="maxWidth">
+        Max Width
+      </label>
+
+      <input
+        id="maxWidth"
+        type="number"
+        [(ngModel)]="maxWidth"
+        min="1"
+      />
+
+    </div>
+
+    <!-- Max Height -->
+    <div class="form-row">
+
+      <label for="maxHeight">
+        Max Height
+      </label>
+
+      <input
+        id="maxHeight"
+        type="number"
+        [(ngModel)]="maxHeight"
+        min="1"
+      />
+
+    </div>
+
+    <!-- Quality -->
+    <div class="form-row">
+
+      <label for="quality">
+        Quality
+      </label>
+
+      <input
+        id="quality"
+        type="number"
+        min="0"
+        max="1"
+        step="0.1"
+        [(ngModel)]="quality"
+      />
+
+      <small>
+        0.2 = Low |
+        0.5 = Medium |
+        0.8 = Good |
+        1.0 = Highest
+      </small>
+
+    </div>
+
+    <!-- Compress Button -->
+    <button
+      type="button"
+      (click)="compressImage()"
+      [disabled]="isLoading || !selectedFile">
+
+      @if (isLoading) {
+        Compressing...
+      } @else {
+        Compress Image
+      }
+
+    </button>
+
+    <!-- Error -->
+    @if (errorMessage) {
+
+      <p class="error">
+        {{ errorMessage }}
+      </p>
+
+    }
+
+  </div>
+
+  <!-- Image Preview -->
+  <app-image-preview
+    [previewUrl]="previewUrl"
+    [selectedFile]="selectedFile">
+  </app-image-preview>
+
+  <!-- Compression Result -->
+  <app-compression-result
+    [result]="result"
+    [downloadUrl]="downloadUrl"
+    (payDownload)="payAndDownload()">
+</app-compression-result>
+
+</div>

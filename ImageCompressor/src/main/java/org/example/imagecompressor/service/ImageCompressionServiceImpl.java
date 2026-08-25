@@ -19,30 +19,30 @@ public class ImageCompressionServiceImpl implements ImageCompressionService {
         return  ImageCompressionUtil.compressImage(file, maxwidth, maxheight, quality);
     }
 
-    @Override
-    public ImageCompressionResponse getCompressionDetails(MultipartFile file, byte[] compressedImage) {
+//    @Override
+//    public ImageCompressionResponse getCompressionDetails(MultipartFile file, byte[] compressedImage) {
+//
+//        String originalSize = formatSize(file.getSize());
+//        String compressedSize = formatSize(compressedImage.length);
+//
+//        return new ImageCompressionResponse(
+//                file.getOriginalFilename(),
+//                originalSize,
+//                compressedSize,
+//                "Image compressed successfully"
+//        );
+//    }
 
-        String originalSize = formatSize(file.getSize());
-        String compressedSize = formatSize(compressedImage.length);
 
-        return new ImageCompressionResponse(
-                file.getOriginalFilename(),
-                originalSize,
-                compressedSize,
-                "Image compressed successfully"
-        );
-    }
-
-
-    private String formatSize(long bytes) {
-        double kb = bytes / 1024.0;
-        double mb = kb / 1024.0;
-
-        if (mb >= 1) {
-            return String.format("%.2f MB", mb);
-        }
-
-        return String.format("%.2f KB", kb);
-    }
+//    private String formatSize(long bytes) {
+//        double kb = bytes / 1024.0;
+//        double mb = kb / 1024.0;
+//
+//        if (mb >= 1) {
+//            return String.format("%.2f MB", mb);
+//        }
+//
+//        return String.format("%.2f KB", kb);
+//    }
 
 }

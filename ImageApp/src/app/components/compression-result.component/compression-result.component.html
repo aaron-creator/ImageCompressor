@@ -1,0 +1,49 @@
+@if (result) {
+
+  <div class="result-card">
+
+    <h3>Compression Result</h3>
+
+    <p class="success">
+      {{ result.message }}
+    </p>
+
+    <div class="result-details">
+
+      <p>
+        <strong>File Name:</strong>
+        {{ result.fileName }}
+      </p>
+
+      <p>
+        <strong>Original Size:</strong>
+        {{ result.originalSize }}
+      </p>
+
+      <p>
+        <strong>Compressed Size:</strong>
+        {{ result.compressedSize }}
+      </p>
+
+      <p>
+        <strong>Reduced By:</strong>
+        {{ reductionPercentage }}%
+      </p>
+
+    </div>
+
+    @if (downloadUrl) {
+
+      <button
+        type="button"
+        class="download-btn"
+        (click)="onPayAndDownload()">
+
+        Pay & Download
+
+      </button>
+
+    }
+
+  </div>
+}
