@@ -1,8 +1,10 @@
 package org.example.imagecompressor.service;
 
+import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
