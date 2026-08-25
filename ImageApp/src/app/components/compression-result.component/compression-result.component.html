@@ -2,9 +2,7 @@
 
   <div class="result-card">
 
-    <h3>
-      Compression Result
-    </h3>
+    <h3>Compression Result</h3>
 
     <p class="success">
       {{ result.message }}
@@ -36,17 +34,16 @@
 
     @if (downloadUrl) {
 
-      <a
-        [href]="downloadUrl"
-        download="compressed-image.jpg"
-        class="download-btn">
+      <button
+        type="button"
+        class="download-btn"
+        (click)="onPayAndDownload()">
 
-        Download Compressed Image
+        Pay & Download
 
-      </a>
+      </button>
 
     }
 
   </div>
-
 }

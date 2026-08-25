@@ -10,6 +10,10 @@ import {
   ImageCompressionService
 } from '../../services/image-compression.service';
 
+import { PaymentService } from '../../services/payment.service';
+
+declare var Razorpay: any;
+
 @Component({
   selector: 'app-image-upload',
   imports: [
@@ -21,6 +25,7 @@ import {
   templateUrl: './image-upload.component.html',
   styleUrl: './image-upload.component.scss'
 })
+
 export class ImageUploadComponent {
 
   selectedFile: File | null = null;
@@ -43,7 +48,8 @@ export class ImageUploadComponent {
 
   constructor(
     private imageCompressionService: ImageCompressionService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private paymentService: PaymentService
   ) { }
 
   onFileSelected(event: Event): void {
@@ -247,4 +253,71 @@ export class ImageUploadComponent {
 
     return `${mb.toFixed(2)} MB`;
   }
+
+  payAndDownload(): void {
+
+    if (!this.downloadUrl) {
+      this.errorMessage = 'Compressed image is not available.';
+      return;
+    }
+
+    this.paymentService.createOrder().subscribe({
+
+    next: (order) => {
+
+      const options = {
+
+        key: order.keyId,
+        amount: order.amount,
+        currency: order.currency,
+
+        name: 'Image Compressor',
+
+        description: 'Download compressed image',
+
+        order_id: order.orderId,
+
+        handler: (response: any) => {
+
+          console.log(
+            'Payment successful:',
+            response
+          );
+  
+          this.downloadCompressedImage();
+        }
+      };
+
+      const razorpay = new Razorpay(options);
+
+      razorpay.open();
+    },
+
+    error: (error) => {
+
+      console.error(
+        'Unable to create payment:',
+        error
+      );
+
+      this.errorMessage =
+        'Unable to start payment.';
+    }
+  });
+}
+
+private downloadCompressedImage(): void {
+  console.log('Paid.....Downloading compressed image...');
+  if (!this.downloadUrl) {
+    return;
+  }
+
+  const link = document.createElement('a');
+
+  link.href = this.downloadUrl;
+  link.download = 'compressed-image.jpg';
+
+  link.click();
+}
+
 }
