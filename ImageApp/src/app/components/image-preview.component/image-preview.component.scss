@@ -1,0 +1,31 @@
+.preview-card {
+
+  margin-top: 20px;
+
+  padding: 20px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+
+  background-color: #fff;
+}
+
+.preview-image {
+
+  display: block;
+
+  max-width: 500px;
+
+  max-height: 400px;
+
+  width: auto;
+
+  height: auto;
+
+  margin-top: 15px;
+
+  object-fit: contain;
+
+  border-radius: 8px;
+}

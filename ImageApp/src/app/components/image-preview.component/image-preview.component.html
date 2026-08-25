@@ -1,0 +1,32 @@
+@if (previewUrl) {
+
+  <div class="preview-card">
+
+    <h3>
+      Selected Image Preview
+    </h3>
+
+    <img
+      [src]="previewUrl"
+      alt="Selected image"
+      class="preview-image"
+    />
+
+    @if (selectedFile) {
+
+      <p>
+        <strong>File:</strong>
+        {{ selectedFile.name }}
+      </p>
+
+      <p>
+        <strong>Size:</strong>
+        {{ selectedFile.size / 1024 | number:'1.2-2' }}
+        KB
+      </p>
+
+    }
+
+  </div>
+
+}

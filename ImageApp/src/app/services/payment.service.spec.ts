@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ImageCompression } from './image-compression';
+import { PaymentService } from './payment.service';
 
-describe('ImageCompression', () => {
-  let service: ImageCompression;
+describe('PaymentService', () => {
+  let service: PaymentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ImageCompression);
+    service = TestBed.inject(PaymentService);
   });
 
   it('should be created', () => {
