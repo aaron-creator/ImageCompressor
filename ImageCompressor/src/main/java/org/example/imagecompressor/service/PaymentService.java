@@ -7,6 +7,7 @@ import org.example.imagecompressor.dto.CreateOrderResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
 
 @Service
 public class PaymentService {
@@ -33,63 +34,60 @@ public class PaymentService {
         this.keyId = keyId;
     }
 
-//    public CreateOrderResponse createOrder()
-//            throws RazorpayException {
-//        System.out.println("Razor pay key "+keyId);
-//
-//        JSONObject options = new JSONObject();
-//
-//        // ₹10 = 1000 paise
-//        options.put("amount", 1000);
-//        options.put("currency", "INR");
-//        options.put(
-//                "receipt",
-//                "img_" + System.currentTimeMillis()
-//        );
-//
-//        Order order =
-//                razorpayClient.orders.create(options);
-//
-//        return new CreateOrderResponse(
-//                order.get("id"),
-//                1000,
-//                "INR",
-//                keyId
-//        );
-//    }
-
-
-    public CreateOrderResponse createOrder()
+    public CreateOrderResponse createOrder(int amountInPaise)
             throws RazorpayException {
 
-        JSONObject options = new JSONObject();
+        if (amountInPaise <= 0) {
+            throw new IllegalArgumentException(
+                    "Amount must be greater than zero"
+            );
+        }
 
-        int amount = 1000;
+        String receiptId =
+                "img_" + UUID.randomUUID();
 
-        options.put("amount", amount);
-        options.put("currency", "INR");
+        JSONObject options =
+                new JSONObject();
+
+        options.put(
+                "amount",
+                amountInPaise
+        );
+
+        options.put(
+                "currency",
+                "INR"
+        );
+
         options.put(
                 "receipt",
-                "img_" + System.currentTimeMillis()
+                receiptId
         );
 
         Order order =
-                razorpayClient.orders.create(options);
+                razorpayClient
+                        .orders
+                        .create(options);
 
         String orderId =
                 order.get("id");
 
-        System.out.println(
-                "Razorpay Order ID: " + orderId
-        );
+        if (orderId == null ||
+                orderId.isBlank()) {
+
+            throw new IllegalStateException(
+                    "Razorpay order creation failed"
+            );
+        }
 
         return new CreateOrderResponse(
                 orderId,
-                amount,
+                amountInPaise,
                 "INR",
                 keyId
         );
     }
+
 
 }
 

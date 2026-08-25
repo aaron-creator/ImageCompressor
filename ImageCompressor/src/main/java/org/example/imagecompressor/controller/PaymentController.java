@@ -19,10 +19,11 @@ public class PaymentController {
     }
 
     @PostMapping("/order")
-    public ResponseEntity<CreateOrderResponse> createOrder() throws RazorpayException {
+    public ResponseEntity<CreateOrderResponse> createDownloadOrder() throws RazorpayException {
 
         try{
-            CreateOrderResponse createOrderResponse = paymentService.createOrder();
+            int amount = 1000;
+            CreateOrderResponse createOrderResponse = paymentService.createOrder(amount);
             return ResponseEntity.ok(createOrderResponse);
         } catch (RazorpayException e) {
             e.printStackTrace();
