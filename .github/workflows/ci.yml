@@ -54,6 +54,10 @@ jobs:
     name: Backend Build - Spring Boot Maven
     runs-on: ubuntu-latest
 
+    env:
+      RAZORPAY_KEY_ID: ${{ secrets.RAZORPAY_KEY_ID }}
+      RAZORPAY_KEY_SECRET: ${{ secrets.RAZORPAY_KEY_SECRET }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -71,6 +75,11 @@ jobs:
           java-version: '21'
           cache: maven
           cache-dependency-path: ImageCompressor/pom.xml
+
+      - name: Verify required secrets 
+        run: |
+          test -n "$RAZORPAY_KEY_ID"
+          test -n "$RAZORPAY_KEY_SECRET"
 
       - name: Build backend with Maven
         run: mvn -B -f ImageCompressor/pom.xml clean verify
