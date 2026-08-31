@@ -1,0 +1,22 @@
+services:
+
+  backend:
+    build:
+      context: ./ImageCompressor
+    container_name: image-compressor-backend
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+      FRONTEND_URL: http://localhost:4200
+
+  frontend:
+    build:
+      context: ./ImageApp
+    container_name: image-compressor-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
