@@ -15,7 +15,7 @@ export interface PaymentOrder {
 })
 export class PaymentService {
 
-    private readonly baseUrl = 'http://localhost:8080/api/payments';
+    private readonly baseUrl = '/api/payments';
 
     constructor(private http: HttpClient) { }   
 

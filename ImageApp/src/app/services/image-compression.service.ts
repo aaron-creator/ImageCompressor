@@ -14,7 +14,6 @@ export interface ImageCompressionResponse {
 })
 export class ImageCompressionService {
 
-  // private readonly baseUrl = 'http://localhost:8080/api/images';
   private readonly baseUrl = '/api/images';
 
   constructor(private http: HttpClient) {}
