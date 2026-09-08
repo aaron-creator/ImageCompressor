@@ -226,9 +226,9 @@ export class ImageUploadComponent {
 
           this.isLoading = false;
 
-          this.changeDetectorRef.markForCheck();
           this.errorMessage =
             'Failed to compress image. Please check backend server.';
+          this.changeDetectorRef.markForCheck();
         }
       });
   }
