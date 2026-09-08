@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/payments")
-@CrossOrigin(origins = "${frontend.url}")
+//@CrossOrigin(origins = "${frontend.url}")
 public class PaymentController {
 
     private final PaymentService paymentService;

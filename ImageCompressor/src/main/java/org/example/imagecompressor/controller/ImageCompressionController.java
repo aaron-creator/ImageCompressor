@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/images")
-@CrossOrigin(origins = "${frontend.url}")
+//@CrossOrigin(origins = "${frontend.url}")
 public class ImageCompressionController {
 
     private final ImageCompressionService imageCompressionService;
@@ -37,7 +37,9 @@ public class ImageCompressionController {
         );
         System.out.println("Compressing byte file " + compressedImage.getClass().getName());
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filenameCompressed-Image.jpg" + file.getOriginalFilename())
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"compressed-" + file.getOriginalFilename() + "\"")
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(compressedImage);
 
