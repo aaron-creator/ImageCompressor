@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/images")
-//@CrossOrigin(origins = "${frontend.url}")
+@CrossOrigin(origins = "${frontend.url}")
 public class ImageCompressionController {
 
     private final ImageCompressionService imageCompressionService;
