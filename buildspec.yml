@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+      - IMAGE_TAG="${CODEBUILD_BUILD_NUMBER}"
+      - aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "$REGISTRY"
+
+  build:
+    commands:
+      - docker build -t "$REGISTRY/imagecompressor:backend-$IMAGE_TAG" ./ImageCompressor
+      - docker build -t "$REGISTRY/imagecompressor:frontend-$IMAGE_TAG" ./ImageApp
+
+  post_build:
+    commands:
+      - docker push "$REGISTRY/imagecompressor:backend-$IMAGE_TAG"
+      - docker push "$REGISTRY/imagecompressor:frontend-$IMAGE_TAG"
