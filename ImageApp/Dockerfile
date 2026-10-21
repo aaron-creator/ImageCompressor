@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/node:20 AS build
+FROM public.ecr.aws/docker/library/node:22.22.3 AS build
 
 WORKDIR /app
 
