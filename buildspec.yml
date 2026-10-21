@@ -9,8 +9,8 @@ phases:
 
   build:
     commands:
-      - docker build -t "$REGISTRY/imagecompressor:backend-$IMAGE_TAG" ./ImageCompressor
-      - docker build -t "$REGISTRY/imagecompressor:frontend-$IMAGE_TAG" ./ImageApp
+      - docker build -t "$REGISTRY/aaron/imagecompressor:backend-$IMAGE_TAG" ./ImageCompressor
+      - docker build -t "$REGISTRY/aaron/imagecompressor:frontend-$IMAGE_TAG" ./ImageApp
 
   post_build:
     commands:
