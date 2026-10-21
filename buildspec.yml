@@ -4,13 +4,14 @@ phases:
   pre_build:
     commands:
       - REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+      - REPOSITORY="${REGISTRY}/aaron/imagecompressor"
       - IMAGE_TAG="${CODEBUILD_BUILD_NUMBER}"
       - aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "$REGISTRY"
 
   build:
     commands:
-      - docker build -t "$REGISTRY/aaron/imagecompressor:backend-$IMAGE_TAG" ./ImageCompressor
-      - docker build -t "$REGISTRY/aaron/imagecompressor:frontend-$IMAGE_TAG" ./ImageApp
+      - docker build -t "${REPOSITORY}:backend-${IMAGE_TAG}" ./ImageCompressor
+      - docker build -t "${REPOSITORY}:frontend-${IMAGE_TAG}" ./ImageApp
 
   post_build:
     commands:
@@ -19,6 +20,5 @@ phases:
           echo "Build failed; skipping image pushes."
           exit 1
         fi
-      - docker push "$REGISTRY/aaron/imagecompressor:backend-$IMAGE_TAG"
-      - docker push "$REGISTRY/aaron/imagecompressor:frontend-$IMAGE_TAG"
-
+      - docker push "${REPOSITORY}:backend-${IMAGE_TAG}"
+      - docker push "${REPOSITORY}:frontend-${IMAGE_TAG}"
