@@ -15,13 +15,14 @@ export interface PaymentOrder {
 })
 export class PaymentService {
 
-    private readonly baseUrl = 'http://localhost:8080/api/payments';
+    // private readonly baseUrl = '/api/payments';
+    private apiUrl = '/api/payments';
 
     constructor(private http: HttpClient) { }   
 
     createOrder(): Observable<PaymentOrder> {
         
-        return this.http.post<PaymentOrder>(`${this.baseUrl}/order`, {});
+        return this.http.post<PaymentOrder>(`${this.apiUrl}/order`, {});
     }
 
 

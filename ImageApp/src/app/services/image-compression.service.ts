@@ -14,7 +14,8 @@ export interface ImageCompressionResponse {
 })
 export class ImageCompressionService {
 
-  private readonly baseUrl = 'http://localhost:8080/api/images';
+  // private readonly baseUrl = '/api/images';
+  private apiUrl = '/api/images';
 
   constructor(private http: HttpClient) {}
 
@@ -33,7 +34,7 @@ export class ImageCompressionService {
     formData.append('quality', quality.toString());
 
     return this.http.post(
-      `${this.baseUrl}/compress`,
+      `${this.apiUrl}/compress`,
       formData,
       {
         responseType: 'blob'

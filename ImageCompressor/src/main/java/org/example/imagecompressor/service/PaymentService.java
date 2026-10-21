@@ -13,14 +13,14 @@ import java.util.UUID;
 public class PaymentService {
 
     private final RazorpayClient razorpayClient;
-
-    @Value("${razorpay.key.id}")
-    private String keyId;
+    private final String keyId;
 
     public PaymentService(
-            @Value("${razorpay.key.id}") String keyId,
-            @Value("${razorpay.key.secret}") String keySecret
+            @Value("${razorpay.key.id:}") String keyId,
+            @Value("${razorpay.key.secret:}") String keySecret
     ) throws RazorpayException {
+
+        this.keyId = keyId;
 
         System.out.println("Razorpay key id: " + keyId);
         System.out.println(
@@ -28,10 +28,12 @@ public class PaymentService {
                         (keySecret != null && !keySecret.isBlank())
         );
 
-        this.razorpayClient =
-                new RazorpayClient(keyId, keySecret);
+        if (keyId == null || keyId.isBlank() || keySecret == null || keySecret.isBlank()) {
+            this.razorpayClient = null;
+            return;
+        }
 
-        this.keyId = keyId;
+        this.razorpayClient = new RazorpayClient(keyId, keySecret);
     }
 
     public CreateOrderResponse createOrder(int amountInPaise)
@@ -40,6 +42,12 @@ public class PaymentService {
         if (amountInPaise <= 0) {
             throw new IllegalArgumentException(
                     "Amount must be greater than zero"
+            );
+        }
+
+        if (razorpayClient == null) {
+            throw new IllegalStateException(
+                    "Razorpay is not configured. Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET."
             );
         }
 
