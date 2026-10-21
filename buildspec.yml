@@ -14,5 +14,11 @@ phases:
 
   post_build:
     commands:
+      - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" != "1" ]; then
+          echo "Build failed; skipping image pushes."
+          exit 1
+        fi
       - docker push "$REGISTRY/imagecompressor:backend-$IMAGE_TAG"
       - docker push "$REGISTRY/imagecompressor:frontend-$IMAGE_TAG"
+
